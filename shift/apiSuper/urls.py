@@ -1,6 +1,10 @@
 from django.urls import path
 from django.conf.urls import include
-from .views import ShiftListView,CategoryListView,ShiftDetailView,CategoryDetailView,CreateSuperUserView
+from rest_framework import routers
+from .views import ShiftListView,CategoryListView,ShiftDetailView,CategoryDetailView,CreateSuperUserView,ShiftViewSet
+
+router =routers.DefaultRouter()
+router.register('shifts',ShiftViewSet,basename="shifts")
 
 urlpatterns =[
 
@@ -12,6 +16,7 @@ urlpatterns =[
 
     path('register/',CreateSuperUserView.as_view(),name="register"),
 
-    path('auth/',include('djoser.urls.jwt'))
+    path('auth/',include('djoser.urls.jwt')),
+    path("",include(router.urls))
 
 ]

@@ -1,6 +1,7 @@
 from rest_framework.permissions import AllowAny
-from rest_framework import generics
-from rest_framework import viewsets
+from rest_framework import generics,viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+
 from .serializers import ShiftSerializer, CategorySerializer,SuperUserSerializer
 from ..models import Category, ShiftBoard
 
@@ -9,11 +10,18 @@ class CreateSuperUserView(generics.CreateAPIView):
     serializer_class =SuperUserSerializer
     permission_classes =(AllowAny,)
 
+
 ##一覧用
 class ShiftListView(generics.ListAPIView):
     queryset = ShiftBoard.objects.all()
     serializer_class = ShiftSerializer
+
+    filter_backends =[DjangoFilterBackend]
+    filterset_fields = ['category','count','date','release']
+
     permission_classes =(AllowAny,)
+
+
 
 
 class CategoryListView(generics.ListAPIView):
@@ -32,3 +40,10 @@ class CategoryDetailView(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes =(AllowAny,)
+
+
+# 作成用
+class ShiftViewSet(viewsets.ModelViewSet):
+    queryset=ShiftBoard.objects.all()
+    serializer_class =ShiftSerializer
+

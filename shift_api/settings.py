@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'widget_tweaks',
     'shift',
+    'django_filters',
     'djoser',
 ]
 
@@ -67,6 +68,7 @@ SIMPLE_JWT = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],

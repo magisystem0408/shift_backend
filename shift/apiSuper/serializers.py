@@ -13,14 +13,14 @@ class SuperUserSerializer(serializers.ModelSerializer):
         superuser =User.objects.create_superuser(**validated_data)
         return superuser
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
 
 class ShiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShiftBoard
         fields = '__all__'
 
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
